@@ -49,5 +49,17 @@ namespace websockets {
     #include <tiny_websockets/network/teensy41/teensy41_tcp_server.hpp>
 
     #define WSDefaultTcpClient websockets::network::Teensy41TcpClient
-    #define WSDefaultTcpServer websockets::network::Teensy41TcpServer    
+    #define WSDefaultTcpServer websockets::network::Teensy41TcpServer
+
+#elif defined(ARDUINO_SAMD_MKRWIFI1010) 
+    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+
+    #include <tiny_websockets/network/mkr1010/mkr1010_tcp.hpp>
+    #define WSDefaultTcpClient websockets::network::Mkr1010TcpClient
+    #define WSDefaultTcpServer websockets::network::Mkr1010TcpServer
+
+    #ifndef _WS_CONFIG_NO_SSL
+        // OpenSSL Dependent
+        #define WSDefaultSecuredTcpClient websockets::network::SecuredMkr1010TcpClient
+    #endif //_WS_CONFIG_NO_SSL
 #endif
